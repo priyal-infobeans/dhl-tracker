@@ -1,0 +1,42 @@
+<?php
+use Drupal\Core\Database\Database;
+ 
+/**
+ * Implements hook_schema().
+ */
+function location_dhl_api_schema(){
+    $schema['address'] = array(
+        'description' => 'The table for storing the address data.',
+        'fields' => array(
+            'id' => array(
+                'description' => 'The primary identifier for address',
+                'type' => 'serial',
+                'not null' => TRUE,
+                'unsigned' => TRUE,
+            ),
+            'country_code' => array(
+                'description' => 'Country Code',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+           'city' => array(
+                'description' => 'City',
+                'type' => 'varchar',
+                'length' => 255,
+                'not null' => TRUE,
+                'default' => '',
+            ),
+            'zip' => array(
+                'description' => 'Postal Code',
+                'type' => 'int',
+                'length' => 100,
+                'not null' => TRUE,
+               
+            ),
+        ),
+        'primary key' => array('id'),
+    );
+    return $schema;
+}

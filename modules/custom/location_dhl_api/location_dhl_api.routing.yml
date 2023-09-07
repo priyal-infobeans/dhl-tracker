@@ -1,0 +1,8 @@
+location_dhl_api.locationFinderForm:
+  path: '/search-location'
+  defaults:
+    _form: '\Drupal\location_dhl_api\Form\LocationTrackerForm'
+    _title: 'Location Finder Form'
+  requirements:
+    _permission: 'access content'
+    _access: 'TRUE'
