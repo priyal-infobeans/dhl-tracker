@@ -5,6 +5,8 @@ PHP Version    - 8.1
 My SQL Version - 8.0
 Drupal Version - 10.0
 
+# Import database from file named 'dhl_loc_api.sql'.
+
 # Steps to be followed after Drupal installation-
 1. Install module named 'Track location'.
 2. Install JSON:API, Rest UI, RESTful Web Services and Serialization Modules.
