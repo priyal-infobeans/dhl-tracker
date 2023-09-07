@@ -4,15 +4,10 @@
  */
 namespace Drupal\location_dhl_api\Plugin\rest\resource;
 
-// use Drupal\Core\Entity\EntityInterface;
-// use Drupal\Core\Url;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Drupal\Component\Serialization\Json;
-// use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-// use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Drupal\node\Entity\Node;
-// use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\rest\ModifiedResourceResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -63,7 +58,7 @@ class GetContentDataRestApi extends ResourceBase {
 
     $curl = curl_init();
 
-    //calling API by passing static data
+    //API call check by passing static data
     $opt = "https://api-sandbox.dhl.com/location-finder/v1/find-by-address?countryCode=DE&addressLocality=Bonn&postalCode=53113&hideClosedLocations=true";
     curl_setopt_array($curl, [
         CURLOPT_URL => $opt,
@@ -87,8 +82,6 @@ class GetContentDataRestApi extends ResourceBase {
 
     if ($err) {
         echo "cURL Error #:" . $err;
-    } else {
-        //echo $response;
     }
         return new ModifiedResourceResponse($response);
     }
@@ -98,27 +91,7 @@ class GetContentDataRestApi extends ResourceBase {
         $result = \Drupal::database()->select('address', 'n')
             ->fields('n', array('id', 'country_code', 'city', 'zip'))
             ->execute()->fetchAllAssoc('id');
-            print_r($result);
-            exit;
-	    $response = [];
-	    $params = Json::decode($request->getContent());
-	    extract($params);
-	    if($name!='' && $email!=''){
-	      $response["ServerMsg"]=[ 
-	          "your_name" => $name,
-	          "your_email" => $email,
-	          "Msg" => "SUCCESS",
-	          "DisplayMsg" => "Rest message for post"
-	      ];
-	    }
-	    else{
-	      $response["ServerMsg"]=[ 
-	          "Msg" => "Failure",
-	          "DisplayMsg" => "Rest message for post",
-	          "DisplayMsg1" => "Name & Email is required"
-	      ];
-	    }
-	    return new ResourceResponse($response);
+	    return new ResourceResponse($result);
 	}
 
 }
